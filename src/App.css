@@ -417,4 +417,5 @@ main.main .pages a.active::after {
 .article-main code {
   /* background-color: grey; */
   font-family: monospace;
+  opacity: 0.8;
 }

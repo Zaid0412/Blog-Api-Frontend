@@ -98,14 +98,14 @@ function App() {
         </div>
         <Outlet context={articles} />
       </main>
-      <footer>
+      {/* <footer>
         <p>
           Developed by <span>@Zaid0412</span>
         </p>
         <a href="https://github.com/Zaid0412/Blog-Api-Backend">
           View on GitHub
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }

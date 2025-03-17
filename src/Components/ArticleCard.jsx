@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 export default function ArticleCard({ article }) {
   const formattedDate = moment(article.createdAt).format("dddd, DD. MMMM YYYY");
+  const extractFirstParagraph = (htmlString) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    const firstParagraph = doc.querySelector("p");
+    return firstParagraph ? firstParagraph.textContent : "";
+  };
   const commentsCount = article.comments.length;
 
   const navigate = useNavigate();
@@ -11,7 +17,7 @@ export default function ArticleCard({ article }) {
     navigate(`/articles/${article.id}`);
   };
 
-  console.log(article.content);
+  //  <div dangerouslySetInnerHTML={{ __html: processedContent }} />;
 
   return (
     // Only render if the article is published
@@ -19,7 +25,9 @@ export default function ArticleCard({ article }) {
       <div className="article-card" onClick={handleClick}>
         <p className="article-card-date">{formattedDate}</p>
         <h1 className="article-card-title">{article.title}</h1>
-        <p className="article-card-content">{article.content}</p>
+        <p className="article-card-content">
+          {extractFirstParagraph(article.content)}
+        </p>
         <div className="article-card-icons">
           <div className="article-card-comments">
             <p>{commentsCount}</p>
